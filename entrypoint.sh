@@ -34,7 +34,7 @@ cd /v2raybin
 wget --no-check-certificate -qO 'v2ray.zip' "https://github.com/v2ray/v2ray-core/releases/download/$V_VER/v2ray-linux-$SYS_Bit.zip"
 unzip v2ray.zip
 rm -rf v2ray.zip
-chmod +x /v2raybin/v2ray-linux-$SYS_Bit/*
+chmod +x /v2raybin/v2ray/*
 
 C_VER=`wget -qO- "https://api.github.com/repos/mholt/caddy/releases/latest" | grep 'tag_name' | cut -d\" -f4`
 mkdir /caddybin
@@ -51,7 +51,7 @@ wget --no-check-certificate -qO 'demo.tar.gz' "https://github.com/ki8852/v2ray-h
 tar xvf demo.tar.gz
 rm -rf demo.tar.gz
 
-cat <<-EOF > /v2raybin/v2ray-linux-$SYS_Bit/config.json
+cat <<-EOF > /v2raybin/v2ray/config.json
 {
     "log":{
         "loglevel":"warning"
@@ -123,7 +123,7 @@ else
   echo -n "${vmess}" | qrencode -s 6 -o /wwwroot/$V2_QR_Path/v2.png
 fi
 
-cd /v2raybin/v2ray-linux-$SYS_Bit
+cd /v2raybin/v2ray
 ./v2ray &
 cd /caddybin
 ./caddy -conf="Caddyfile"
