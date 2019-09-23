@@ -51,7 +51,7 @@ wget --no-check-certificate -qO 'demo.tar.gz' "https://github.com/ki8852/v2ray-h
 tar xvf demo.tar.gz
 rm -rf demo.tar.gz
 
-cat <<-EOF > /v2raybin/v2ray/config.json
+cat <<-EOF > /v2raybin/config.json
 {
     "log":{
         "loglevel":"warning"
@@ -123,7 +123,7 @@ else
   echo -n "${vmess}" | qrencode -s 6 -o /wwwroot/$V2_QR_Path/v2.png
 fi
 
-cd /v2raybin/v2ray
+cd /v2raybin
 ./v2ray &
 cd /caddybin
 ./caddy -conf="Caddyfile"
