@@ -39,7 +39,7 @@ C_VER=`wget -qO- "https://api.github.com/repos/mholt/caddy/releases/latest" | gr
 mkdir /caddybin
 cd /caddybin
 wget --no-check-certificate -qO 'caddy.tar.gz' "https://github.com/mholt/caddy/releases/download/$C_VER/caddy_$C_VER$BitVer"
-tar xvf caddy.tar.gz
+tar zxvf caddy.tar.gz
 rm -rf caddy.tar.gz
 chmod +x caddy
 cd /root
@@ -47,7 +47,7 @@ mkdir /wwwroot
 cd /wwwroot
 
 wget --no-check-certificate -qO 'demo.tar.gz' "https://github.com/ki8852/v2ray-heroku-undone/raw/master/demo.tar.gz"
-tar xvf demo.tar.gz
+tar zxvf demo.tar.gz
 rm -rf demo.tar.gz
 
 cat <<-EOF > /v2raybin/config.json
