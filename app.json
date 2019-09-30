@@ -2,12 +2,7 @@
   "name": "Goflyway简易部署",
   "description": "Deploy Goflyway to Heroku.",
   "keywords": ["Goflyway"],
-  "env": {
-    "AppName": {
-       "description": "请输入最上方填写的App Name，用于生成二维码和订阅链接，如果不想生成输入no",
-       "value": "no"
-     },
-    "VER": {
+  "VER": {
        "description": "默认latest安装最新版本Goflyway （输入Goflyway 版本号 进行指定版本安装。例如：2.0.0rc1)",
        "value": "latest"
      },
