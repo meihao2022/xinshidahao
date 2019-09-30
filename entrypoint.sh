@@ -1,12 +1,4 @@
 #! /bin/bash
-if [[ -z "${UUID}" ]]; then
-  UUID="4890bd47-5180-4b1c-9a5d-3ef686543112"
-fi
-
-if [[ -z "${AlterID}" ]]; then
-  AlterID="10"
-fi
-
 if [[ -z "${V2_Path}" ]]; then
   V2_Path="/FreeApp"
 fi
@@ -24,16 +16,16 @@ SYS_Bit="$(getconf LONG_BIT)"
 [[ "$SYS_Bit" == '64' ]] && BitVer='_linux_amd64.tar.gz'
 
 if [ "$VER" = "latest" ]; then
-  V_VER=`wget -qO- "https://api.github.com/repos/v2ray/v2ray-core/releases/latest" | grep 'tag_name' | cut -d\" -f4`
+  V_VER=`wget -qO- "https://api.github.com/repos/coyove/goflyway/releases/latest" | grep 'tag_name' | cut -d\" -f4`
 else
   V_VER="v$VER"
 fi
 
-mkdir /v2raybin
-cd /v2raybin
-wget --no-check-certificate -qO 'v2ray.zip' "https://github.com/v2ray/v2ray-core/releases/download/$V_VER/v2ray-linux-$SYS_Bit.zip"
-unzip v2ray.zip
-chmod +x /v2raybin/v2ray/
+mkdir /goflyway-heroku
+cd /goflyway-heroku
+wget --no-check-certificate -qO 'goflyway.zip' "https://github.com/coyove/goflyway/releases/download/$V_VER/goflyway-linux-$SYS_Bit.zip"
+tar -zxf goflyway.tar.gz
+chmod +x goflyway
 
 C_VER=`wget -qO- "https://api.github.com/repos/mholt/caddy/releases/latest" | grep 'tag_name' | cut -d\" -f4`
 mkdir /caddybin
@@ -50,39 +42,6 @@ wget --no-check-certificate -qO 'demo.tar.gz' "https://github.com/z0day/v2ray-he
 tar xvf demo.tar.gz
 rm -rf demo.tar.gz
 
-cat <<-EOF > /v2raybin/config.json
-{
-    "log":{
-        "loglevel":"warning"
-    },
-    "inbound":{
-        "protocol":"vmess",
-        "listen":"127.0.0.1",
-        "port":2333,
-        "settings":{
-            "clients":[
-                {
-                    "id":"${UUID}",
-                    "level":1,
-                    "alterId":${AlterID}
-                }
-            ]
-        },
-        "streamSettings":{
-            "network":"ws",
-            "wsSettings":{
-                "path":"${V2_Path}"
-            }
-        }
-    },
-    "outbound":{
-        "protocol":"freedom",
-        "settings":{
-        }
-    }
-}
-EOF
-
 cat <<-EOF > /caddybin/Caddyfile
 http://0.0.0.0:${PORT}
 {
@@ -96,33 +55,9 @@ http://0.0.0.0:${PORT}
 }
 EOF
 
-cat <<-EOF > /v2raybin/vmess.json 
-{
-    "v": "2",
-    "ps": "${AppName}.herokuapp.com",
-    "add": "${AppName}.herokuapp.com",
-    "port": "443",
-    "id": "${UUID}",
-    "aid": "${AlterID}",			
-    "net": "ws",			
-    "type": "none",			
-    "host": "",			
-    "path": "${V2_Path}",	
-    "tls": "tls"			
-}
-EOF
 
-if [ "$AppName" = "no" ]; then
-  echo "不生成二维码"
-else
-  mkdir /wwwroot/$V2_QR_Path
-  vmess="vmess://$(cat /v2raybin/vmess.json | base64 -w 0)" 
-  Linkbase64=$(echo -n "${vmess}" | tr -d '\n' | base64 -w 0) 
-  echo "${Linkbase64}" | tr -d '\n' > /wwwroot/$V2_QR_Path/index.html
-  echo -n "${vmess}" | qrencode -s 6 -o /wwwroot/$V2_QR_Path/v2.png
-fi
 
-cd /v2raybin
-./v2ray &
+cd /goflyway-heroku
+./goflyway -k=r5nz41lv7u  -l=":8100" &
 cd /caddybin
 ./caddy -conf="Caddyfile"
