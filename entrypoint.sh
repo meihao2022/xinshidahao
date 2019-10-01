@@ -3,10 +3,6 @@ if [[ -z "${V2_Path}" ]]; then
   V2_Path="/FreeApp"
 fi
 
-if [[ -z "${V2_QR_Path}" ]]; then
-  V2_QR_Code="1234"
-fi
-
 rm -rf /etc/localtime
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 date -R
@@ -15,15 +11,10 @@ SYS_Bit="$(getconf LONG_BIT)"
 [[ "$SYS_Bit" == '32' ]] && BitVer='_linux_386.tar.gz'
 [[ "$SYS_Bit" == '64' ]] && BitVer='_linux_amd64.tar.gz'
 
-if [ "$VER" = "latest" ]; then
-  V_VER=`wget -qO- "https://api.github.com/repos/coyove/goflyway/releases/latest" | grep 'tag_name' | cut -d\" -f4`
-else
-  V_VER="v$VER"
-fi
 
 mkdir /goflyway-heroku
 cd /goflyway-heroku
-wget --no-check-certificate -qO 'goflyway.zip' "https://github.com/coyove/goflyway/releases/download/$V_VER/goflyway-linux-$SYS_Bit.zip"
+wget --no-check-certificate -qO 'goflyway.zip' "https://github.com/coyove/goflyway/releases/download/2.0.0rc1/goflyway_windows_amd64.zip"
 tar -zxf goflyway.tar.gz
 chmod +x goflyway
 
@@ -58,6 +49,6 @@ EOF
 
 
 cd /goflyway-heroku
-./goflyway -k=r5nz41lv7u  -l=":8100" &
+./goflyway -k="m155h0m3"  -l=":8100" &
 cd /caddybin
 ./caddy -conf="Caddyfile"
