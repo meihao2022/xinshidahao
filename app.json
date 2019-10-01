@@ -2,10 +2,24 @@
   "name": "Goflyway简易部署",
   "description": "Deploy Goflyway to Heroku.",
   "keywords": ["Goflyway"],
-  "V2_Path": {
+   "KEY": {
+       "description": "密码，服务端与客户端需保持一致",
+       "value": "lao666"
+     },
+     "PORT": {
+       "description": "设置监听端口，该地址是客户端需要连接的端口",
+       "value": "6666"
+     },
+    "V2_Path": {
        "description": "Path路径，默认/FreeApp",
        "value": "/FreeApp"
-     },
+     }, 
+     "LEVEL": {
+       "description": "日志输出层级，有：dbg0，dbg，log，info，warn，err，off（关闭输出）",
+       "value": "log"
+     }
+  },
+
   "website": "https://github.com/je0929/goflyway-heroku",
   "repository": "https://github.com/je0929/goflyway-heroku",
   "stack": "container"
