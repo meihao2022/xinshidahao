@@ -2,11 +2,7 @@
   "name": "Goflyway简易部署",
   "description": "Deploy Goflyway to Heroku.",
   "keywords": ["Goflyway"],
-  "VER": {
-       "description": "默认latest安装最新版本Goflyway （输入Goflyway 版本号 进行指定版本安装。例如：2.0.0rc1)",
-       "value": "latest"
-     },
-    "V2_Path": {
+  "V2_Path": {
        "description": "Path路径，默认/FreeApp",
        "value": "/FreeApp"
      },
