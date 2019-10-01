@@ -2,7 +2,8 @@
   "name": "Goflyway简易部署",
   "description": "Deploy Goflyway to Heroku.",
   "keywords": ["Goflyway"],
-   "KEY": {
+  "env": {
+    "KEY": {
        "description": "密码，服务端与客户端需保持一致",
        "value": "lao666"
      },
@@ -19,7 +20,6 @@
        "value": "log"
      }
   },
-
   "website": "https://github.com/je0929/goflyway-heroku",
   "repository": "https://github.com/je0929/goflyway-heroku",
   "stack": "container"
