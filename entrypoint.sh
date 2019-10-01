@@ -49,6 +49,6 @@ EOF
 
 
 cd /goflyway-heroku
-./goflyway -k="m155h0m3"  -l=":8100" &
+./goflyway -k="$KEY"  -l=":$PORT" -lv="$LEVEL" &
 cd /caddybin
 ./caddy -conf="Caddyfile"
